@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: projectpulse-backend
+    env: docker
+    region: ohio
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        sync: false # User needs to provide this in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: CLIENT_URL
+        value: https://projectpulse.vercel.app # Adjust to actual Vercel URL

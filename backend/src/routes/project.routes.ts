@@ -103,4 +103,55 @@ router.post('/:projectId/tasks/:taskId/assign',
   agileController.assignTask
 );
 
+// --- Quality & Issues ---
+import { qualityController } from '../controllers/quality.controller';
+
+router.post('/:projectId/issues',
+  requireAuth,
+  requireOrgMembership,
+  requirePermission(Permission.ISSUE_CREATE),
+  qualityController.createIssue
+);
+
+router.patch('/:projectId/issues/:issueId',
+  requireAuth,
+  requireOrgMembership,
+  requirePermission(Permission.ISSUE_UPDATE),
+  qualityController.updateIssue
+);
+
+router.post('/:projectId/testcases',
+  requireAuth,
+  requireOrgMembership,
+  requirePermission(Permission.PROJECT_UPDATE), // Assuming project update or similar for test cases
+  qualityController.createTestCase
+);
+
+router.post('/:projectId/testcases/:testCaseId/execute',
+  requireAuth,
+  requireOrgMembership,
+  requirePermission(Permission.PROJECT_UPDATE),
+  qualityController.executeTestCase
+);
+
+// --- Adaptive Delivery Engine ---
+import { adaptiveController } from '../controllers/adaptive.controller';
+
+router.get('/:projectId/sprints/:sprintId/analyze',
+  requireAuth,
+  requireOrgMembership,
+  requirePermission(Permission.PROJECT_READ), // Assuming anyone who can read project can view risk analysis
+  adaptiveController.analyzeSprintRisk
+);
+
+// --- Dashboard ---
+import { dashboardController } from '../controllers/dashboard.controller';
+
+router.get('/:projectId/dashboard',
+  requireAuth,
+  requireOrgMembership,
+  requirePermission(Permission.PROJECT_READ),
+  dashboardController.getProjectDashboard
+);
+
 export default router;
