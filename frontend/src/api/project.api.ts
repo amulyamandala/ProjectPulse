@@ -16,11 +16,11 @@ const handleRes = async (res: Response) => {
 
 export const projectApi = {
   async getMyOrgs() {
-    const res = await fetchWithAuth('http://localhost:5000/api/v1/organizations');
+    const res = await fetchWithAuth('https://projectpulse-s6d2.onrender.com/api/v1/organizations');
     return handleRes(res);
   },
   async createOrg(name: string, slug: string) {
-    const res = await fetchWithAuth('http://localhost:5000/api/v1/organizations', {
+    const res = await fetchWithAuth('https://projectpulse-s6d2.onrender.com/api/v1/organizations', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, slug })
@@ -28,11 +28,11 @@ export const projectApi = {
     return handleRes(res);
   },
   async getProjects(orgId: string) {
-    const res = await fetchWithAuth(`http://localhost:5000/api/v1/organizations/${orgId}/projects`);
+    const res = await fetchWithAuth(`https://projectpulse-s6d2.onrender.com/api/v1/organizations/${orgId}/projects`);
     return handleRes(res);
   },
   async createProject(orgId: string, name: string, key: string, description: string) {
-    const res = await fetchWithAuth(`http://localhost:5000/api/v1/organizations/${orgId}/projects`, {
+    const res = await fetchWithAuth(`https://projectpulse-s6d2.onrender.com/api/v1/organizations/${orgId}/projects`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, key, description })

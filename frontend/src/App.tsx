@@ -92,7 +92,7 @@ function AuthForm({ title }: { title: string }) {
       const endpoint = isLogin ? '/api/v1/auth/login' : '/api/v1/auth/register';
       const body = isLogin ? { email, password } : { firstName, lastName, email, password };
 
-      const res = await fetch(`http://localhost:5000${endpoint}`, {
+      const res = await fetch(`https://projectpulse-s6d2.onrender.com${endpoint}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
