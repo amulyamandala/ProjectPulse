@@ -6,6 +6,7 @@ import { hello } from '@projectpulse/shared';
 
 import { connectDB } from './config/database';
 import authRoutes from './routes/auth.routes';
+import orgRoutes from './routes/organization.routes';
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/organizations', orgRoutes);
 
 app.get('/api/v1/health', (req, res) => {
   res.json({
