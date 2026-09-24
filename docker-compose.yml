@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://admin:password@mongodb:27017/projectpulse?authSource=admin
+      - NODE_ENV=development
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend:/app/backend
+      - ./packages:/app/packages
+      - /app/backend/node_modules
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./frontend:/app/frontend
+      - ./packages:/app/packages
+      - /app/frontend/node_modules
+
+volumes:
+  mongodb_data:

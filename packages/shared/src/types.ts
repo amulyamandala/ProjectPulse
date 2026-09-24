@@ -1,0 +1,54 @@
+export enum Role {
+  ORG_ADMIN = 'ORG_ADMIN',
+  PROJECT_MANAGER = 'PROJECT_MANAGER',
+  TEAM_LEAD = 'TEAM_LEAD',
+  DEVELOPER = 'DEVELOPER',
+  STAKEHOLDER = 'STAKEHOLDER'
+}
+
+export enum TaskStatus {
+  BACKLOG = 'BACKLOG',
+  TODO = 'TODO',
+  IN_PROGRESS = 'IN_PROGRESS',
+  IN_REVIEW = 'IN_REVIEW',
+  TESTING = 'TESTING',
+  DONE = 'DONE'
+}
+
+export enum Priority {
+  URGENT = 'URGENT',
+  HIGH = 'HIGH',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW'
+}
+
+export enum IssueSeverity {
+  CRITICAL = 'CRITICAL',
+  HIGH = 'HIGH',
+  MEDIUM = 'MEDIUM',
+  LOW = 'LOW'
+}
+
+export enum SprintStatus {
+  PLANNED = 'PLANNED',
+  ACTIVE = 'ACTIVE',
+  CLOSED = 'CLOSED'
+}
+
+export enum DependencyType {
+  BLOCKS = 'BLOCKS',
+  BLOCKED_BY = 'BLOCKED_BY',
+  RELATES_TO = 'RELATES_TO'
+}
+
+export enum ActivityAction {
+  CREATED = 'CREATED',
+  UPDATED = 'UPDATED',
+  DELETED = 'DELETED',
+  ASSIGNED = 'ASSIGNED',
+  STATUS_CHANGED = 'STATUS_CHANGED',
+  COMMENTED = 'COMMENTED',
+  SPRINT_STARTED = 'SPRINT_STARTED',
+  SPRINT_CLOSED = 'SPRINT_CLOSED',
+  DOD_OVERRIDDEN = 'DOD_OVERRIDDEN'
+}
