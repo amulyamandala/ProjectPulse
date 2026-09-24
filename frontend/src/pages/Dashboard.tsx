@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { 
-  Activity, AlertTriangle, CheckCircle2, Clock, 
+  AlertTriangle, 
   LayoutDashboard, Loader2, PlayCircle, Plus, 
-  RefreshCcw, Search, ShieldAlert, Target, Users 
+  RefreshCcw, ShieldAlert, Target 
 } from 'lucide-react';
 import { formatDistanceToNow, format } from 'date-fns';
 import { 
@@ -42,7 +42,7 @@ export default function Dashboard() {
   const { data: overview, isLoading: loadingOverview, refetch: refetchOverview } = useDashboardOverview(projectId);
   const { data: sprint, isLoading: loadingSprint, refetch: refetchSprint } = useSprintHealth(projectId);
   const { data: workload, isLoading: loadingWorkload, refetch: refetchWorkload } = useTeamWorkload(projectId);
-  const { data: velocity, isLoading: loadingVelocity, refetch: refetchVelocity } = useVelocity(projectId);
+  const { refetch: refetchVelocity } = useVelocity(projectId);
   const { data: activity, isLoading: loadingActivity, refetch: refetchActivity } = useRecentActivity(projectId);
   const { data: deadlines, isLoading: loadingDeadlines, refetch: refetchDeadlines } = useUpcomingDeadlines(projectId);
   const { data: traceability, isLoading: loadingTraceability, refetch: refetchTraceability } = useTraceability(projectId);
