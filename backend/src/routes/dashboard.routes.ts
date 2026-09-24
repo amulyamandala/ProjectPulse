@@ -4,7 +4,15 @@ import { requireAuth } from '../middleware/auth.middleware';
 
 const router = Router();
 
-// Get the personalized dashboard for the authenticated user
-router.get('/me', requireAuth, dashboardController.getUserDashboard);
+router.use(requireAuth);
+
+router.get('/overview', dashboardController.getOverview);
+router.get('/sprint-health', dashboardController.getSprintHealth);
+router.get('/workload', dashboardController.getWorkload);
+router.get('/velocity', dashboardController.getVelocity);
+router.get('/activity', dashboardController.getActivity);
+router.get('/deadlines', dashboardController.getDeadlines);
+router.get('/traceability', dashboardController.getTraceability);
+router.get('/dod', dashboardController.getDod);
 
 export default router;

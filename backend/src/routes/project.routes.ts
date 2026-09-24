@@ -144,14 +144,4 @@ router.get('/:projectId/sprints/:sprintId/analyze',
   adaptiveController.analyzeSprintRisk
 );
 
-// --- Dashboard ---
-import { dashboardController } from '../controllers/dashboard.controller';
-
-router.get('/:projectId/dashboard',
-  requireAuth,
-  requireOrgMembership,
-  requirePermission(Permission.PROJECT_READ),
-  dashboardController.getProjectDashboard
-);
-
 export default router;

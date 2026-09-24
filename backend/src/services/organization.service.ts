@@ -4,35 +4,24 @@ import mongoose from 'mongoose';
 
 export const organizationService = {
   async createOrganization(name: string, slug: string, ownerId: string) {
-    const session = await mongoose.startSession();
-    session.startTransaction();
-    
-    try {
-      const existingOrg = await Organization.findOne({ slug }).session(session);
-      if (existingOrg) {
-        throw new Error('Organization slug already exists');
-      }
-
-      const org = await Organization.create([{
-        name,
-        slug,
-        ownerId
-      }], { session });
-
-      await OrganizationMember.create([{
-        organizationId: org[0]._id,
-        userId: ownerId,
-        role: Role.ORG_ADMIN
-      }], { session });
-
-      await session.commitTransaction();
-      return org[0];
-    } catch (error) {
-      await session.abortTransaction();
-      throw error;
-    } finally {
-      session.endSession();
+    const existingOrg = await Organization.findOne({ slug });
+    if (existingOrg) {
+      throw new Error('Organization slug already exists');
     }
+
+    const org = await Organization.create({
+      name,
+      slug,
+      ownerId
+    });
+
+    await OrganizationMember.create({
+      organizationId: org._id,
+      userId: ownerId,
+      role: Role.ORG_ADMIN
+    });
+
+    return org;
   },
 
   async getOrganizationsForUser(userId: string) {

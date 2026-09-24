@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-import { hello } from '@projectpulse/shared';
 
 import { connectDB } from './config/database';
 import authRoutes from './routes/auth.routes';
@@ -32,7 +31,7 @@ app.use('/api/v1/dashboard', dashboardRoutes);
 app.get('/api/v1/health', (req, res) => {
   res.json({
     status: 'ok',
-    message: hello(),
+    message: 'ProjectPulse API is running',
     environment: process.env.NODE_ENV,
     timestamp: new Date().toISOString()
   });

@@ -4,37 +4,26 @@ import mongoose from 'mongoose';
 
 export const projectService = {
   async createProject(orgId: string, name: string, key: string, description: string | undefined, leadId: string) {
-    const session = await mongoose.startSession();
-    session.startTransaction();
-
-    try {
-      const existing = await Project.findOne({ organizationId: orgId, key }).session(session);
-      if (existing) {
-        throw new Error(`Project with key ${key} already exists in this organization`);
-      }
-
-      const project = await Project.create([{
-        organizationId: orgId,
-        name,
-        key,
-        description,
-        leadId
-      }], { session });
-
-      await ProjectMember.create([{
-        projectId: project[0]._id,
-        userId: leadId,
-        role: Role.PROJECT_MANAGER
-      }], { session });
-
-      await session.commitTransaction();
-      return project[0];
-    } catch (error) {
-      await session.abortTransaction();
-      throw error;
-    } finally {
-      session.endSession();
+    const existing = await Project.findOne({ organizationId: orgId, key });
+    if (existing) {
+      throw new Error(`Project with key ${key} already exists in this organization`);
     }
+
+    const project = await Project.create({
+      organizationId: orgId,
+      name,
+      key,
+      description,
+      leadId
+    });
+
+    await ProjectMember.create({
+      projectId: project._id,
+      userId: leadId,
+      role: Role.PROJECT_MANAGER
+    });
+
+    return project;
   },
 
   async getProjectsForOrg(orgId: string, userId: string) {
