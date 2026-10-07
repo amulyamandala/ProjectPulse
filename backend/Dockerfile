@@ -16,9 +16,7 @@ RUN npm install
 COPY backend/ ./backend/
 COPY packages/shared/ ./packages/shared/
 
-# Build shared first, then backend
-RUN cd packages/shared && npm run build
-RUN cd backend && npm run build
+
 
 WORKDIR /app/backend
 
