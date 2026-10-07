@@ -3,7 +3,7 @@ import { Link, useLocation, Outlet } from "react-router-dom";
 import {
   LayoutDashboard,
   ListTodo,
-  Trello,
+  Kanban,
   Settings,
   Target,
   ShieldAlert,
@@ -15,7 +15,7 @@ export default function Layout() {
   const navItems = [
     { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
     { name: "Backlog", path: "/backlog", icon: ListTodo },
-    { name: "Active Sprint", path: "/board", icon: Trello },
+    { name: "Active Sprint", path: "/board", icon: Kanban },
     { name: "Issues", path: "/issues", icon: ShieldAlert },
     { name: "Milestones", path: "/milestones", icon: Target },
     { name: "Settings", path: "/settings", icon: Settings },
