@@ -1,0 +1,52 @@
+import { fetchWithAuth } from "./authHelper";
+
+const handleRes = async (res) => {
+  if (!res.ok) {
+    const text = await res.text();
+    let errStr = text;
+    try {
+      const json = JSON.parse(text);
+      if (json.error) errStr = json.error;
+      if (json.details) errStr += " " + JSON.stringify(json.details);
+    } catch (e) {}
+    throw new Error(errStr || `Request failed with status ${res.status}`);
+  }
+  return res.json();
+};
+
+export const projectApi = {
+  async getMyOrgs() {
+    const res = await fetchWithAuth(
+      "https://projectpulse-s6d2.onrender.com/api/v1/organizations",
+    );
+    return handleRes(res);
+  },
+  async createOrg(name, slug) {
+    const res = await fetchWithAuth(
+      "https://projectpulse-s6d2.onrender.com/api/v1/organizations",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, slug }),
+      },
+    );
+    return handleRes(res);
+  },
+  async getProjects(orgId) {
+    const res = await fetchWithAuth(
+      `https://projectpulse-s6d2.onrender.com/api/v1/organizations/${orgId}/projects`,
+    );
+    return handleRes(res);
+  },
+  async createProject(orgId, name, key, description) {
+    const res = await fetchWithAuth(
+      `https://projectpulse-s6d2.onrender.com/api/v1/organizations/${orgId}/projects`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, key, description }),
+      },
+    );
+    return handleRes(res);
+  },
+};
