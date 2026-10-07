@@ -24,6 +24,8 @@ import { useMyOrgs, useProjects } from "../hooks/useProjects";
 import CreateProjectModal from "../components/CreateProjectModal";
 import CreateTaskModal from "../components/CreateTaskModal";
 import CreateSprintModal from "../components/CreateSprintModal";
+import CreateIssueModal from "../components/CreateIssueModal";
+import CreateMilestoneModal from "../components/CreateMilestoneModal";
 import { Link } from "react-router-dom";
 
 function SkeletonCard() {
@@ -66,6 +68,8 @@ export default function Dashboard() {
   const [isCreateProjectOpen, setIsCreateProjectOpen] = useState(false);
   const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
   const [isCreateSprintOpen, setIsCreateSprintOpen] = useState(false);
+  const [isCreateIssueOpen, setIsCreateIssueOpen] = useState(false);
+  const [isCreateMilestoneOpen, setIsCreateMilestoneOpen] = useState(false);
 
   useEffect(() => {
     if (projects && projects.length > 0 && !projectId) {
@@ -274,38 +278,44 @@ export default function Dashboard() {
               </option>
             ))}
           </select>
-          <button
-            onClick={() => setIsCreateSprintOpen(true)}
-            className="btn-outline"
-            style={{
-              padding: "8px 16px",
-              borderRadius: "8px",
-              fontSize: "14px",
-            }}
-            disabled={!projectId}
-          >
-            + Sprint
-          </button>
-          <button
-            onClick={() => setIsCreateTaskOpen(true)}
-            className="btn-outline"
-            style={{
-              padding: "8px 16px",
-              borderRadius: "8px",
-              fontSize: "14px",
-            }}
-            disabled={!projectId}
-          >
-            + Task
-          </button>
+          <div style={{ display: 'flex', gap: '8px', borderRight: '1px solid var(--hairline)', paddingRight: '16px' }}>
+            <button
+              onClick={() => setIsCreateSprintOpen(true)}
+              className="btn-outline"
+              style={{ padding: "8px 12px", borderRadius: "8px", fontSize: "14px" }}
+              disabled={!projectId}
+            >
+              + Sprint
+            </button>
+            <button
+              onClick={() => setIsCreateTaskOpen(true)}
+              className="btn-outline"
+              style={{ padding: "8px 12px", borderRadius: "8px", fontSize: "14px" }}
+              disabled={!projectId}
+            >
+              + Task
+            </button>
+            <button
+              onClick={() => setIsCreateIssueOpen(true)}
+              className="btn-outline"
+              style={{ padding: "8px 12px", borderRadius: "8px", fontSize: "14px" }}
+              disabled={!projectId}
+            >
+              + Issue
+            </button>
+            <button
+              onClick={() => setIsCreateMilestoneOpen(true)}
+              className="btn-outline"
+              style={{ padding: "8px 12px", borderRadius: "8px", fontSize: "14px" }}
+              disabled={!projectId}
+            >
+              + Milestone
+            </button>
+          </div>
           <button
             onClick={() => setIsCreateProjectOpen(true)}
             className="btn-primary"
-            style={{
-              padding: "8px 16px",
-              borderRadius: "8px",
-              fontSize: "14px",
-            }}
+            style={{ padding: "8px 16px", borderRadius: "8px", fontSize: "14px" }}
           >
             New Project
           </button>
@@ -330,10 +340,23 @@ export default function Dashboard() {
           }}
         >
           <h3 style={{ marginBottom: "8px" }}>This project is empty</h3>
-          <p style={{ color: "var(--mute)", fontSize: "14px" }}>
-            Create your first sprint and add some tasks using the API to
-            populate these charts.
+          <p style={{ color: "var(--mute)", fontSize: "14px", marginBottom: "var(--spacing-xl)" }}>
+            Create your first sprint and add some tasks to populate these charts.
           </p>
+          <div style={{ display: "flex", gap: "var(--spacing-md)", justifyContent: "center" }}>
+            <button
+              onClick={() => setIsCreateSprintOpen(true)}
+              className="btn-primary"
+            >
+              <Plus size={16} style={{ marginRight: '8px', display: 'inline' }} /> Create Sprint
+            </button>
+            <button
+              onClick={() => setIsCreateTaskOpen(true)}
+              className="btn-outline"
+            >
+              <Plus size={16} style={{ marginRight: '8px', display: 'inline' }} /> Create Task
+            </button>
+          </div>
         </div>
       )}
 
@@ -933,6 +956,18 @@ export default function Dashboard() {
           <CreateSprintModal
             isOpen={isCreateSprintOpen}
             onClose={() => setIsCreateSprintOpen(false)}
+            orgId={currentOrg._id}
+            projectId={projectId}
+          />
+          <CreateIssueModal
+            isOpen={isCreateIssueOpen}
+            onClose={() => setIsCreateIssueOpen(false)}
+            orgId={currentOrg._id}
+            projectId={projectId}
+          />
+          <CreateMilestoneModal
+            isOpen={isCreateMilestoneOpen}
+            onClose={() => setIsCreateMilestoneOpen(false)}
             orgId={currentOrg._id}
             projectId={projectId}
           />
